@@ -3,18 +3,110 @@
 {% block title %} about {% endblock %}
 
 
+{% block style %}
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
+
 {% block navLink %}
 <li class="nav-item">
-    <a class="nav-link" href="/shop">Home</a>
+  <a class="nav-link" href="/shop">Home</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/shop/about">About</a>
+  <a class="nav-link active" aria-current="page" href="/shop/about">About</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/contact">Contact Us</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/track">Tracker</a>
 </li>
 {% endblock %}
 
 
 {% block body %}
-<div class="container-fluid mt-5">
-    about
+<div class="container-fluid" style="margin-top: 70px;">
+  <main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron mb-4">
+      <div class="container">
+        <h1 class="display-3 text-light">AD Cart!</h1>
+        <p class="text-light">ADCart Private Limited is an Indian e-commerce company, headquartered in Bangalore, and
+          incorporated in Singapore as a
+          private limited company. The company initially focused on online book sales before expanding into other
+          product
+          categories such as consumer electronics, fashion, home essentials, groceries, and lifestyle products. </p>
+
+        <p class="text-light">
+          The service competes primarily with Amazon India and domestic rival Snapdeal. As of FY23, ADCart held
+          a 48%
+          market share in the Indian e-commerce industry. ADCart has a dominant position in the apparel segment,
+          bolstered by
+          its acquisition of Myntra, and was described as being "neck and neck" with Amazon in the sale of electronics
+          and mobile
+          phones.</p>
+        <p class="text-light"><a class="btn btn-light" href="#" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>
+    <div class="container">
+      <hr style="color: wheat;" class="border-2">
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="d-flex">
+        <div class="col-md-4">
+          <h2 class="text-light">Ayush Dhar</h2>
+          <p class="text-light">My journey into the world of web development began with a fascination for how websites
+            work behind the scenes. Over the years, I’ve honed my skills in both front-end and back-end development,
+            mastering technologies like Python and JavaScript to create seamless and efficient digital solutions</p>
+          <p><a class="btn btn-outline-light" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2 class="text-light">Skills and Expertise</h2>
+          <p class="text-light"><b>Front-end Development:</b> Crafting visually appealing and user-friendly interfaces
+            that
+            enhance your shopping experience.</p>
+          <p class="text-light"><b>Back-end Development:</b> Building robust and scalable server-side solutions to
+            ensure
+            smooth operations.</p>
+          <p class="text-light"><b>Python & JavaScript:</b> Leveraging these powerful languages to develop innovative
+            features and functionalities.</p>
+          <p class="text-light"><a class="btn btn-outline-light" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2 class="text-light">What Drives Me</h2>
+          <p class="text-light">I believe that technology should simplify lives and elevate experiences. At ADCart, my
+            goal is to provide a user-centric
+            platform that not only meets but exceeds your expectations. Each line of code and design element is
+            crafted with the aim
+            of delivering a seamless and enjoyable shopping experience.</p>
+          <p class="text-light">Thank you for visiting ADCart. I’m excited to share this journey with you and am
+            always here to ensure you have the best
+            possible experience on our site.</p>
+          <p class="text-light"><a class="btn btn-outline-light" href="#" role="button">View details &raquo;</a></p>
+        </div>
+
+
+        <hr>
+
+      </div> <!-- /container -->
+
+  </main>
 </div>
 {% endblock %}

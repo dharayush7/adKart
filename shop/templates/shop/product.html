@@ -1,0 +1,48 @@
+{% extends "shop/basic.html" %} {% block title %} Contact Us {% endblock %}
+<!-- navlink start -->
+{% block navLink %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/shop">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/about">About</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/contact">Contact Us</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/track">Tracker</a>
+</li>
+{% endblock %} {% block body %}
+<div class="container-fluid" style="margin-top: 79px">
+  <div class="container">
+    <div class="d-flex">
+      <div>
+        <img src="/media/{{ prd.0.image }}" alt="" />
+      </div>
+      <div class="ms-5">
+        <p class="text fs-2 fw-bold text-light">{{prd.0.product_name}}</p>
+        <p class="text fs-4 fw-medium text-light" style="margin-left: 20px; margin-top: 80px;">
+          $ {{prd.0.price}}.00
+          <span class="fs-5 fw-normal text-danger" style="margin-left: 10px;">- 30% Off</span>
+        </p>
+        <p class="text-light text fs-4 fw-bold">Description: </p>
+        <p class="text-light">{{prd.0.desc}}</p>
+
+        <div class="d-flex justify-content-center flex-column align-items-center" style="margin-top: 30px;">
+          <p class="text text-light fs-5">Quantity in cart: <span id="qyt{{prd.0.id}}">0</span></p>
+          <button class="btn btn-light" style="width: 100%; border-radius: 10px;" id="crt{{prd.0.id}}">Add to
+            cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- scriprt -->
+{% block js %}
+{% load static %}
+<script src="{% static "script/product.js" %}"></script>
+{% endblock %}

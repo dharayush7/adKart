@@ -1,7 +1,5 @@
 const cartbtns = document.querySelectorAll(".cart");
 
-
-
 let cart = {};
 
 if (localStorage.getItem("cart")) {
@@ -27,6 +25,8 @@ cartbtns.forEach((cartbtn) => {
     }
 
     text.innerText = `In cart: ${cart[id]}`;
+    cartLink.innerText = `(${Object.keys(cart).length})`;
     localStorage.setItem("cart", JSON.stringify(cart));
+
   });
 });
