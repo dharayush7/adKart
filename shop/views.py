@@ -1,6 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Product
+from django.shortcuts import render, redirect # type: ignore
+from .models import Product, Contact
 from math import ceil
 
 
@@ -24,11 +23,21 @@ def index(request):
     return render(request, 'shop/index.html', params)
 
 
-def about(request):
+def about(request):        
     return render(request, 'shop/about.html')
 
 
 def contact(request):
+    if request.method == "POST":
+        frsName = request.POST.get('frsName', '')
+        lstName = request.POST.get('lstName', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        desc = request.POST.get('desc', '')
+        name = frsName +" "+ lstName
+        contact = Contact(name=name, email=email, phone=phone, desc=desc )
+        contact.save()
+        return redirect('contactSuccess')
     return render(request, 'shop/contact.html')
 
 
@@ -37,6 +46,9 @@ def tracker(request):
 
 
 def product(request, id):
-    print(id)
     prd = Product.objects.filter(id=id)
     return render(request, 'shop/product.html', {'prd': prd})
+
+
+def contactSuccess(request):
+    return render(request, 'shop/contactSuccess.html')

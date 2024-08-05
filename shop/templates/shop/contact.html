@@ -1,6 +1,26 @@
-{% extends "shop/basic.html" %} 
-{% block title %} Contact Us {% endblock %} 
-{% block navLink %}
+{% extends "shop/basic.html" %} {% block title %} Contact Us {% endblock %}
+<!-- style -->
+{% block style %}
+<style>
+  input {
+    border: 1px #666666 solid !important;
+  }
+
+  input::placeholder {
+    color: rgb(187, 187, 187) !important;
+    opacity: 1;
+  }
+
+  textarea {
+    border: 1px #666666 solid !important;
+  }
+
+  textarea::placeholder {
+    color: rgb(187, 187, 187) !important;
+    opacity: 1;
+  }
+</style>
+{% endblock %} {% block navLink %}
 <li class="nav-item">
   <a class="nav-link" aria-current="page" href="/shop">Home</a>
 </li>
@@ -14,8 +34,85 @@
   <a class="nav-link" href="/shop/track">Tracker</a>
 </li>
 {% endblock %} {% block body %}
-<div class="container-fluid" style="margin-top: 79px;" >
-  <h5 class="text text-light">Contact Us</h5>
+<div class="container-fluid" style="margin-top: 79px">
+  <div class="container d-flex justify-content-center">
+    <p class="text text-light fs-1 fw-medium">Contact Us</p>
+  </div>
+  <div class="container">
+    <form action="/shop/contact/" method="POST"> {% csrf_token %}
+      <div class="container">
+        <label for="name" class="form-label text-light fs-4">Name</label>
+      </div>
+      <div class="container d-flex" id="name" style="width: 100%">
+        <div class="mb-3" style="width: 100%; margin-right: 10px">
+          <input
+            type="text"
+            class="form-control bg-dark text-light"
+            id="frs_name"
+            placeholder="First Name"
+            name="frsName"
+            required
+          />
+        </div>
+        <div class="mb-3" style="width: 100%; margin-left: 10px">
+          <input
+            type="text"
+            class="form-control bg-dark text-light"
+            id="lst_name"
+            placeholder="Last Name"
+            name="lstName"
+            required
+          />
+        </div>
+      </div>
+      <div class="container mb-3">
+        <label for="email" class="form-label text-light fs-4"
+          >Email address</label
+        >
+        <input
+          type="email"
+          class="form-control bg-dark text-light"
+          name="email"
+          placeholder="example@abc.com"
+          id="email"
+          required
+        />
+      </div>
+      <div class="container mb-3">
+        <label for="phone" class="form-label text-light fs-4">Phone No.</label>
+        <input
+          type="tel"
+          class="form-control bg-dark text-light"
+          name="phone"
+          placeholder="XXX-XXX-XXXX"
+          id="phone"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          required
+        />
+        <p class="text text-light fs-6" style="margin-top: 5px;">** Enter phone no in thie format "123-123-1234"</p>
+      </div>
+      <div class="container mb-3 text-light fs-4">
+        <label for="desc" class="form-label">How may help You</label>
+        <textarea
+          class="form-control bg-dark text-light"
+          id="desc"
+          name="desc"
+          placeholder="write description hare"
+          rows="3"
+          required
+        ></textarea>
+      </div>
+      <div class="container d-flex justify-content-center align-items-center">
+        <button
+          class="btn btn-outline-light"
+          style="width: 120px; border-radius: 20px"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 {% endblock %}
