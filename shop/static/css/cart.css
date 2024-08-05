@@ -1,0 +1,66 @@
+.cart-card{
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1b1f22;
+    padding: 20px;
+    border-radius: 20px;
+}
+.prd-image{
+    width: 100px;
+    height: 100px;
+}
+
+.prd-name{
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.prd-qyt{
+    
+    margin-right: 10px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.prd-qyt p {
+    margin: 0;
+    font-size: 23px;
+}
+
+.btn-minus{
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    width: 30px;
+    height: 40px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn-plus{
+   font-size: 24px;
+    padding: 0;
+    margin: 0;
+    width: 30px;
+    height: 40px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px; 
+}
+
+.prd-qyt-no{
+    font-size: 24px;
+    padding: 1px 5px;
+    margin: 0;
+    border: 1px solid wheat;
+}
+
+.div-name{
+    max-width: 450px;
+}

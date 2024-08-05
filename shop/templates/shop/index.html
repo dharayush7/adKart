@@ -1,9 +1,7 @@
 {% extends 'shop/basic.html' %} {% block title %} Home {% endblock %}
 <!-- style -->
-{% block style %}
-{% load static %}
-<link rel="stylesheet" href="{% static "css/index.css" %}">
-{% endblock %}
+{% block style %} {% load static %} <link rel="stylesheet" 
+href="{% static "css/index.css" %}"> {% endblock %}
 <!-- navlink start -->
 {% block navLink %}
 <li class="nav-item">
@@ -18,28 +16,67 @@
 <li class="nav-item">
   <a class="nav-link" href="/shop/track">Tracker</a>
 </li>
+{% endblock %} {% block cart %}
+<a href="/shop/cart" class="btn btn-outline-light ms-3">
+  <div class="d-flex justify-content-center align-items-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-cart"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+      />
+    </svg>
+    <span style="margin-left: 5px" id="cartLink">(0)</span>
+  </div>
+</a>
 {% endblock %} {% block body %}
 <div class="container-fluid" style="margin-top: 70px">
   {% for products, range in allProds %}
   <p class="text fs-3 fw-bold text-light" style="margin-left: 80px">
     Flash sell on {{ products.0.category }} - Recomended
   </p>
-  <div id="carouselExampleIndicators{{forloop.counter}}" class="carousel slide" style="margin-bottom: 60px">
-    <div class="carousel-indicators" style="top: 350px;">
-      <button type="button" data-bs-target="#carouselExampleIndicators{{forloop.counter}}" data-bs-slide-to="0"
-        class="active" aria-current="true" aria-label="Slide 1"></button>
+  <div
+    id="carouselExampleIndicators{{forloop.counter}}"
+    class="carousel slide"
+    style="margin-bottom: 60px"
+  >
+    <div class="carousel-indicators" style="top: 350px">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators{{forloop.counter}}"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
       {% for i in range %}
-      <button type="button" data-bs-target="#carouselExampleIndicators{{forloop.parentloop.counter}}" data-bs-slide-to="{{i}}"
-        aria-label="Slide 2"></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators{{forloop.parentloop.counter}}"
+        data-bs-slide-to="{{i}}"
+        aria-label="Slide 2"
+      ></button>
       {% endfor %}
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="d-flex justify-content-evenly">
           <div class="">
-            <div class="card" style="width: 350px; height: 350px; background-color: #1b1f22">
-              <img src="/media/{{products.0.image}}" style="width: 350px; height: 200px; overflow: hidden"
-                class="card-img-top" alt="no image" />
+            <div
+              class="card"
+              style="width: 350px; height: 350px; background-color: #1b1f22"
+            >
+              <img
+                src="/media/{{products.0.image}}"
+                style="width: 350px; height: 200px; overflow: hidden"
+                class="card-img-top"
+                alt="no image"
+              />
               <div class="card-body">
                 <h5 class="card-title text-light">
                   {{ products.0.product_name }}
@@ -48,12 +85,21 @@
                   ${{ products.0.price }}
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div id="div{{ products.0.id }}" class="d-flex align-items-center">
-                    <button id="pr{{ products.0.id }}" class="btn btn-light cart">
+                  <div
+                    id="div{{ products.0.id }}"
+                    class="d-flex align-items-center"
+                  >
+                    <button
+                      id="pr{{ products.0.id }}"
+                      class="btn btn-light cart"
+                    >
                       Add to cart
                     </button>
                   </div>
-                  <a href="/shop/product/{{ products.0.id }}" class="btn btn-light">
+                  <a
+                    href="/shop/product/{{ products.0.id }}"
+                    class="btn btn-light"
+                  >
                     Learn more
                   </a>
                 </div>
@@ -63,9 +109,16 @@
 
           {% for i in products|slice:"1:" %}
           <div class="">
-            <div class="card" style="width: 350px; height: 350px; background-color: #1b1f22">
-              <img src="/media/{{i.image}}" class="card-img-top" style="width: 350px; height: 200px; overflow: hidden"
-                alt="..." />
+            <div
+              class="card"
+              style="width: 350px; height: 350px; background-color: #1b1f22"
+            >
+              <img
+                src="/media/{{i.image}}"
+                class="card-img-top"
+                style="width: 350px; height: 200px; overflow: hidden"
+                alt="..."
+              />
               <div class="card-body">
                 <h5 class="card-title text-light">{{ i.product_name }}</h5>
                 <p class="card-text text-light fw-bolder fs-4">
@@ -93,13 +146,23 @@
         </div>
       </div>
     </div>
-    <button class="carousel-control-prev" style="width: auto; margin-left: 20px" type="button"
-      data-bs-target="#carouselExampleIndicators{{forloop.counter}}" data-bs-slide="prev">
+    <button
+      class="carousel-control-prev"
+      style="width: auto; margin-left: 20px"
+      type="button"
+      data-bs-target="#carouselExampleIndicators{{forloop.counter}}"
+      data-bs-slide="prev"
+    >
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" style="width: auto; margin-right: 20px" type="button"
-      data-bs-target="#carouselExampleIndicators{{forloop.counter}}" data-bs-slide="next">
+    <button
+      class="carousel-control-next"
+      style="width: auto; margin-right: 20px"
+      type="button"
+      data-bs-target="#carouselExampleIndicators{{forloop.counter}}"
+      data-bs-slide="next"
+    >
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>

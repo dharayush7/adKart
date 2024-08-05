@@ -1,3 +1,6 @@
+from django.http import HttpResponse # type: ignore
+from django.core import serializers # type: ignore
+import json
 from django.shortcuts import render, redirect # type: ignore
 from .models import Product, Contact
 from math import ceil
@@ -52,3 +55,13 @@ def product(request, id):
 
 def contactSuccess(request):
     return render(request, 'shop/contactSuccess.html')
+
+def cart(request):
+    if request.method == "POST":
+        body = json.loads(request.body)
+        id = body[2:]
+        ob = Product.objects.filter(id=id)
+        ob_js = serializers.serialize("json", ob)
+        return HttpResponse(ob_js)
+
+    return render(request, "shop/cart.html")
