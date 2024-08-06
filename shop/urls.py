@@ -11,5 +11,5 @@ urlpatterns = [
     path("track/", views.tracker, name="track"),
     path("search/", views.index, name="search"),
     path("product/<int:id>", views.product, name="productView"),
-    path("checkout/", views.index, name="checkout"),
+    path("checkout/", views.checkout, name="checkout"),
 ]

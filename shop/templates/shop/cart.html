@@ -1,4 +1,4 @@
-{% extends 'shop/basic.html' %} {% block title %} cart {% endblock %} 
+{% extends 'shop/basic.html' %} {% block title %} cart {% endblock %}
 <!-- style -->
 {% block style %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
@@ -35,13 +35,14 @@
 </a>
 {% endblock %} {% block body %}
 
-<div class="container-fluid" style="margin-top: 80px">
+<div class="container-fluid" style="margin-top: 80px; margin-bottom: 50px">
   <div class="d-flex justify-content-center">
     <p class="text-light fs-1 fw-medium">Cart</p>
   </div>
   <div class="container mt-3" id="container">
     <h1 class="text-light">Loading...</h1>
   </div>
+  <div class="container" id="out"></div>
 </div>
 
 {% endblock %} {% block js %} {% load static %}

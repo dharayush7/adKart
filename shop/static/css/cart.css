@@ -63,4 +63,5 @@
 
 .div-name{
     max-width: 450px;
+    min-width: 450px;
 }

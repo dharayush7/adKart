@@ -11,6 +11,7 @@ if (localStorage.getItem("cart")) {
         </div>`;
   } else {
     render(cart);
+    checkOut(cart);
   }
 } else {
   container.innerHTML = `<div class="container d-flex cart-card mb-4">
@@ -18,6 +19,40 @@ if (localStorage.getItem("cart")) {
                 <p class="fs-1 text-light" style="text-align: center;">Your Cart Is Empty...</p>
             </div>
         </div>`;
+}
+
+async function checkOut(cart) {
+  let p = 0;
+  let keys = Object.keys(cart);
+  keys.forEach(async (key) => {
+    let data = await get(key);
+    let qyt = 0 + cart[key];
+    let pr = 0 + data.price;
+    p = p + qyt * pr;
+    let st = "";
+    if (p == 0) {
+      st = "disabled";
+    }
+    document.getElementById("out").innerHTML = `
+    <div class="d-flex justify-content-end align-items-end flex-column">
+      <div class="">
+        <p class="text-light text-center fs-3">Total: $ ${p}.00</p>
+      </div>
+      <div>
+        <button type="button" class="btn btn-danger" id="clcr">Clear Cart</button>
+        <button type="button" class="btn btn-light" id="chot" ${st}>Checkout</button>
+        
+      </div>
+    </div>
+    `;
+    document.getElementById("clcr").addEventListener("click", () => {
+      localStorage.removeItem("cart");
+      window.location.replace("http://localhost:8000/shop/cart");
+    });
+    document.getElementById("chot").addEventListener("click", () => {
+      window.location.replace("http://localhost:8000/shop/checkout");
+    });
+  });
 }
 
 async function render(cart) {
@@ -62,6 +97,7 @@ async function render(cart) {
         cart[btnid] = cart[btnid] - 1;
         cart[btnid] = Math.max(0, cart[btnid]);
         document.getElementById(`qyt${btnid}`).innerText = cart[btnid];
+        checkOut(cart);
         localStorage.setItem("cart", JSON.stringify(cart));
       });
     });
@@ -71,6 +107,7 @@ async function render(cart) {
         let btnid = btnPlus.id.split("pl")[1];
         cart[btnid] = cart[btnid] + 1;
         document.getElementById(`qyt${btnid}`).innerText = cart[btnid];
+        checkOut(cart);
         localStorage.setItem("cart", JSON.stringify(cart));
       });
     });
@@ -97,11 +134,3 @@ async function get(key) {
   });
   return (await result.json())[0].fields;
 }
-
-const btnMinuses = document.querySelectorAll(".btn-minus");
-
-btnMinuses.forEach((btnMinus) => {
-  btnMinus.addEventListener("click", () => {
-    console.log("clicked", btnMinus.id);
-  });
-});

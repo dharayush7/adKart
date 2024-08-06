@@ -1,0 +1,174 @@
+{% extends 'shop/basic.html' %} {% block title %} CheckOut {% endblock %}
+<!-- style -->
+{% block style %}
+<style>
+  input {
+    border: 1px #666666 solid !important;
+  }
+
+  input::placeholder {
+    color: rgb(187, 187, 187) !important;
+    opacity: 1;
+  }
+</style>
+{% endblock %}
+<!-- navlink -->
+{% block navLink %}
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="/shop">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/about">About</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/contact">Contact Us</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/track">Tracker</a>
+</li>
+{% endblock %} {% block cart %}
+<a href="/shop/cart" class="btn btn-outline-light ms-3">
+  <div class="d-flex justify-content-center align-items-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-cart"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+      />
+    </svg>
+    <span style="margin-left: 5px" id="cartLink">(0)</span>
+  </div>
+</a>
+{% endblock %} {% block body %}
+<div class="container-fluid" style="margin-top: 80px; margin-bottom: 50px">
+  <p class="text-light fs-1 text-center">Check Out</p>
+  <div class="container">
+    <div class="d-flex align-items-center">
+      <p class="text-light fs-3"><b>Step 1:</b> Review you cart</p>
+    </div>
+    <div class="container">
+      <p class="text-center fs-4 text-light" id="tlamn"></p>
+      <ol class="list-group list-group-numbered" id="liPrd">
+        
+      </ol>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="d-flex  align-items-center">
+      <p class="fs-3 text-light"><b>Step 2:</b> Fill your address</p>
+    </div>
+    <form action="">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="fullname" class="form-label text-light fs-4"
+            >Full Name</label
+          >
+          <input
+            type="text"
+            class="form-control bg-dark text-light"
+            id="fullname"
+            placeholder="Jhon doe"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label text-light fs-4">Email</label>
+          <input
+            type="email"
+            class="form-control bg-dark text-light"
+            id="email"
+            placeholder="abc@example.com"
+            required
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="adrl1" class="form-label text-light fs-5"
+          >Address line 1</label
+        >
+        <input
+          type="text"
+          class="form-control bg-dark text-light"
+          id="adrl1"
+          placeholder="Street/Village/House no."
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="adrl2" class="form-label text-light fs-5"
+          >Address line 2</label
+        >
+        <input
+          type="text"
+          class="form-control bg-dark text-light"
+          id="adrl2"
+          placeholder="post office/City"
+          required
+        />
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-5">
+          <label for="district" class="form-label text-light fs-5"
+            >District</label
+          >
+          <input
+            type="text"
+            class="form-control bg-dark text-light"
+            id="district"
+            placeholder="Delhi"
+            required
+          />
+        </div>
+        <div class="col-md-5">
+          <label for="state" class="form-label text-light fs-5">State</label>
+          <input
+            type="text"
+            class="form-control bg-dark text-light"
+            id="state"
+            placeholder="UP"
+            required
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="pincode" class="form-label text-light fs-5"
+            >Pincode</label
+          >
+          <input
+            type="text"
+            class="form-control bg-dark text-light"
+            id="pincode"
+            placeholder="XXXXX"
+            required
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="ph" class="form-label text-light fs-5">Phone No.</label>
+        <input
+          type="tel"
+          class="form-control bg-dark text-light"
+          id="ph"
+          placeholder="XXXXXXXXXX"
+          required
+        />
+      </div>
+      <div
+        class="container d-flex justify-content-center align-items-center mt-4"
+      >
+        <button class="btn btn-light" id="plor" disabled>Submit & make Payment</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+<!-- script -->
+{% load static %}
+{% block js %}
+<script src="{% static 'script/checkout.js' %}"></script>
+{% endblock %}

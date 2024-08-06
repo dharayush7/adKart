@@ -65,3 +65,6 @@ def cart(request):
         return HttpResponse(ob_js)
 
     return render(request, "shop/cart.html")
+
+def checkout(request):
+    return render(request, 'shop/checkout.html')
