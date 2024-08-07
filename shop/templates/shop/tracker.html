@@ -1,6 +1,17 @@
-{% extends "shop/basic.html" %} 
-{% block title %} Contact Us {% endblock %} 
-{% block navLink %}
+{% extends "shop/basic.html" %} {% block title %} Tracker {% endblock %}
+<!-- style -->
+{% block style %}
+<style>
+  input {
+    border: 1px #666666 solid !important;
+  }
+
+  input::placeholder {
+    color: rgb(187, 187, 187) !important;
+    opacity: 1;
+  }
+</style>
+{% endblock %} {% block navLink %}
 <li class="nav-item">
   <a class="nav-link" aria-current="page" href="/shop">Home</a>
 </li>
@@ -13,8 +24,7 @@
 <li class="nav-item">
   <a class="nav-link active" href="/shop/track">Tracker</a>
 </li>
-{% endblock %}
-{% block cart %}
+{% endblock %} {% block cart %}
 <a href="/shop/cart" class="btn btn-outline-light ms-3">
   <div class="d-flex justify-content-center align-items-center">
     <svg
@@ -32,11 +42,42 @@
     <span style="margin-left: 5px" id="cartLink">(0)</span>
   </div>
 </a>
-{% endblock %}
-
-{% block body %}
-<div class="container-fluid" style="margin-top: 79px;" >
-  <h5 class="text text-light">Tracker</h5>
+{% endblock %} {% block body %}
+<div class="container-fluid" style="margin-top: 79px; margin-bottom: 80px">
+  <div class="d-flex justify-content-center align-items-center">
+    <p class="text-light fs-1 fw-medium">Track Your Order</p>
+  </div>
+  <div class="container">
+    <form action="/shop/track/" method="post"> {% csrf_token %}
+      <div class="container mb-3">
+        <label for="orderId" class="form-label text-light fs-4">Order Id</label>
+        <input
+          type="text"
+          class="form-control bg-dark text-light"
+          id="orderId"
+          placeholder="XXXXXX"
+          name="orderId"
+          required
+        />
+      </div>
+      <div class="container mb-3">
+        <label for="email" class="form-label text-light fs-4">Email</label>
+        <input
+          type="email"
+          class="form-control bg-dark text-light"
+          id="email"
+          name="email"
+          placeholder="abc@expample.com"
+          required
+        />
+      </div>
+      <div class="container d-flex justify-content-center align-items-center">
+        <button class="btn btn-light" style="width: 120px; border-radius: 20px" type="submit">
+          Track
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

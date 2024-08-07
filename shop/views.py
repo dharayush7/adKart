@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.core import serializers 
 import json
 from django.shortcuts import render, redirect
-from .models import Product, Contact, Order
+from .models import Product, Contact, Order, OrderUpdate
 from math import ceil
 
 
@@ -45,6 +45,52 @@ def contact(request):
 
 
 def tracker(request):
+    if request.method == "POST":
+        orderId = request.POST.get("orderId")
+        email = request.POST.get("email")
+        try:
+            order = Order.objects.filter(order_id=orderId)
+            if len(order)>0:
+                if order[0].email == email:
+                    addr = {
+                        "name": order[0].name,
+                        "adrln1": order[0].address_line_1,
+                        "adrln2": order[0].address_line_2,
+                        "csp": order[0].district+ ", "+ order[0].state + " - " + order[0].pincode,
+                        "ph": order[0].phone,
+                        "email": order[0].email
+                    }
+
+                    tp = 0 
+                    prod = []
+                    items = json.loads((order[0].items_json))
+                    keys = list(items.keys())
+                    for key in keys:
+                        id = key[2:]
+                        prd = Product.objects.filter(id=id)
+                        sbTl = prd[0].price * items[key]
+                        tp = tp + sbTl
+                        prdApp = [prd[0].product_name, items[key], sbTl]
+                        prod.append(prdApp)
+                    
+                    status = OrderUpdate.objects.filter(order_id=orderId)
+                    print(status[0].timpstamp)
+                    params = {
+                        "addr": addr,
+                        "total": tp,
+                        "product": prod,
+                        "status": status
+                    }
+
+                    return render(request, 'shop/trackDetails.html', params)
+                    
+                else:
+                    return render(request, "shop/trackFailed.html")
+            else:
+                return render(request, "shop/trackFailed.html")
+
+        except:
+            return render(request, "shop/trackFailed.html")
     return render(request, 'shop/tracker.html')
 
 
@@ -56,6 +102,7 @@ def product(request, id):
 def contactSuccess(request):
     return render(request, 'shop/contactSuccess.html')
 
+
 def cart(request):
     if request.method == "POST":
         body = json.loads(request.body)
@@ -65,6 +112,7 @@ def cart(request):
         return HttpResponse(ob_js)
 
     return render(request, "shop/cart.html")
+
 
 def checkout(request):
     if request.method == "POST":
@@ -79,9 +127,11 @@ def checkout(request):
         ph = request.POST.get("ph", '')
         order = Order(items_json=itemJson, name=fullname, email=email, address_line_1=adel1, address_line_2=adrl2, district=district, state=state, pincode=pincode, phone=ph)
         order.save()
-        
+        update = OrderUpdate(order_id= order.order_id, order_desc="Order has been placed")
+        update.save()
         return render(request, "shop/orderSucess.html", {"id": order.order_id})
     return render(request, 'shop/checkout.html')
 
+
 def search(request):
-    return render(request, 'shop/orderSucess.html')
+    return render(request, 'shop/trackDetails.html')

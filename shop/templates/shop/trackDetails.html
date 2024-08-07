@@ -1,0 +1,115 @@
+{% extends "shop/basic.html" %} {% block title %} Tracker {% endblock %}
+<!-- sryle -->
+{% block style %}
+<style>
+    .add p{
+        margin: 0;
+        padding: 1px;
+        font-size: 20px;
+    }
+</style>
+{% endblock %}
+<!-- navlink -->
+{% block navLink %}
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="/shop">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/about">About</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/shop/contact">Contact Us</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" href="/shop/track">Tracker</a>
+</li>
+{% endblock %} {% block cart %}
+<a href="/shop/cart" class="btn btn-outline-light ms-3">
+  <div class="d-flex justify-content-center align-items-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-cart"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+      />
+    </svg>
+    <span style="margin-left: 5px" id="cartLink">(0)</span>
+  </div>
+</a>
+{% endblock %} {% block body %}
+<div class="container-fluid" style="margin-top: 79px; margin-bottom: 80px">
+  <div class="d-flex justify-content-center align-items-center">
+    <p class="text-light fs-1 fw-medium">Order Details</p>
+  </div>
+  <div class="container d-flex justify-content-between">
+    <p class="text-light fs-4"><b>Order Id:</b> {{status.0.order_id}}</p>
+    <p class="text-light fs-4"><b>Order date:</b> {{status.0.timpstamp}}</p>
+  </div>
+  <div class="container">
+    <p class="text-light fs-2 text-center">Cart Items</p>
+    <div class="contaner">
+      <table class="table table-striped table-dark">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Items</th>
+            <th scope="col">Quatity</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in product%}
+          <tr>
+            
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{item.0}}</td>
+            <td>{{item.1}}</td>
+            <td>{{item.2}}</td>
+          </tr>
+          {% endfor %}
+            <th scope="row"></th>
+            <td><b>Total</b></td>
+            <td></td>
+            <td>{{total}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-light text-center fs-2">Address Details</p>
+    <div class="container add">
+        <p class="text-light"><b>{{addr.name}}</b></p>
+        <p class="text-light">{{addr.adrln1}},</p>
+        <p class="text-light">{{addr.adrln2}}, </p>
+        <p class="text-light">{{addr.csp}}</p>
+        <p class="text-light"><b>Phone no. -</b> {{addr.ph}}</p>
+        <p class="text-light"><b>Email -</b> {{addr.email}}</p>
+    </div>
+    <p class="text-light text-center fs-2">Tracking Details</p>
+    <div class="container">
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for event in status%}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{event.order_desc}}</td>
+                    <td>{{event.timpstamp}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

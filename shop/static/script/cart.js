@@ -1,5 +1,7 @@
 const container = document.getElementById("container");
 
+const csrf = document.querySelector("#csrf input").value;
+
 let cart = {};
 if (localStorage.getItem("cart")) {
   cart = JSON.parse(localStorage.getItem("cart"));
@@ -126,7 +128,7 @@ async function render(cart) {
 async function get(key) {
   let result = await fetch("", {
     headers: {
-      "X-CSRFToken": "ue4im0sXxwK9sGX4jdHtIcaJWSsls8Kp",
+      "X-CSRFToken": csrf,
     },
     method: "POST",
     mode: "same-origin",

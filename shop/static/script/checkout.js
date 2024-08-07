@@ -1,7 +1,15 @@
+const csrf = document.querySelector("#fld input").value
+
+
 let cart = {};
 if (localStorage.getItem("cart")) {
   cart = JSON.parse(localStorage.getItem("cart"));
-
+  let keys = Object.keys(cart);
+  keys.forEach((key) => {
+    if (cart[key] == 0) {
+      delete cart[key];
+    }
+  });
   if (Object.keys(cart).length == 0) {
     document.getElementById("liPrd").innerHTML = `
      <li
@@ -22,6 +30,7 @@ if (localStorage.getItem("cart")) {
   } else {
     let item = 0;
     let keys = Object.keys(cart);
+
     keys.forEach((keys) => {
       let i = cart[keys] + 0;
       item = item + i;
@@ -115,7 +124,7 @@ async function fetchAmout(cart) {
 async function get(key) {
   let result = await fetch("http://localhost:8000/shop/cart/", {
     headers: {
-      "X-CSRFToken": "ue4im0sXxwK9sGX4jdHtIcaJWSsls8Kp",
+      "X-CSRFToken": csrf,
     },
     method: "POST",
     mode: "same-origin",

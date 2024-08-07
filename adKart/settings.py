@@ -62,7 +62,7 @@ ROOT_URLCONF = 'adKart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['adKart/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

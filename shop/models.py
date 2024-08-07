@@ -39,5 +39,14 @@ class Order(models.Model):
     pincode = models.CharField(max_length=100)
     phone = models.CharField(max_length=15, default="")
 
+
+    
+
+class OrderUpdate(models.Model):
+    update_id = models.AutoField(primary_key=True)
+    order_id = models.CharField(max_length=100)
+    order_desc = models.CharField(max_length=10000)
+    timpstamp = models.DateField(auto_now_add=True)
+
     def __str__(self):
-        return self.name
+        return self.order_desc[0:7] + "..."
