@@ -62,7 +62,8 @@
     <div class="d-flex  align-items-center">
       <p class="fs-3 text-light"><b>Step 2:</b> Fill your address</p>
     </div>
-    <form action="">
+    <form action="/shop/checkout/" method="post"> {% csrf_token %}
+      <input type="hidden" id="itemJson" name="itemJson">
       <div class="row mb-3">
         <div class="col-md-6">
           <label for="fullname" class="form-label text-light fs-4"
@@ -72,6 +73,7 @@
             type="text"
             class="form-control bg-dark text-light"
             id="fullname"
+            name="fullname"
             placeholder="Jhon doe"
             required
           />
@@ -82,6 +84,7 @@
             type="email"
             class="form-control bg-dark text-light"
             id="email"
+            name="email"
             placeholder="abc@example.com"
             required
           />
@@ -93,6 +96,7 @@
         >
         <input
           type="text"
+          name="adel1"
           class="form-control bg-dark text-light"
           id="adrl1"
           placeholder="Street/Village/House no."
@@ -107,6 +111,7 @@
           type="text"
           class="form-control bg-dark text-light"
           id="adrl2"
+          name="adrl2"
           placeholder="post office/City"
           required
         />
@@ -120,6 +125,7 @@
             type="text"
             class="form-control bg-dark text-light"
             id="district"
+            name="district"
             placeholder="Delhi"
             required
           />
@@ -130,6 +136,7 @@
             type="text"
             class="form-control bg-dark text-light"
             id="state"
+            name="state"
             placeholder="UP"
             required
           />
@@ -142,6 +149,7 @@
             type="text"
             class="form-control bg-dark text-light"
             id="pincode"
+            name="pincode"
             placeholder="XXXXX"
             required
           />
@@ -153,6 +161,7 @@
           type="tel"
           class="form-control bg-dark text-light"
           id="ph"
+          name="ph"
           placeholder="XXXXXXXXXX"
           required
         />
@@ -160,7 +169,7 @@
       <div
         class="container d-flex justify-content-center align-items-center mt-4"
       >
-        <button class="btn btn-light" id="plor" disabled>Submit & make Payment</button>
+        <button class="btn btn-light" id="plor" type="submit" disabled>Submit & make Payment</button>
       </div>
     </form>
   </div>

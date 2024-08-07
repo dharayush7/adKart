@@ -39,8 +39,8 @@ async function checkOut(cart) {
         <p class="text-light text-center fs-3">Total: $ ${p}.00</p>
       </div>
       <div>
-        <button type="button" class="btn btn-danger" id="clcr">Clear Cart</button>
-        <button type="button" class="btn btn-light" id="chot" ${st}>Checkout</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" id="clcr">Clear Cart</button>
+        <button type="button" class="btn btn-light" style="margin-left: 10px;" id="chot" ${st}>Checkout</button>
         
       </div>
     </div>

@@ -1,8 +1,8 @@
-from django.http import HttpResponse # type: ignore
-from django.core import serializers # type: ignore
+from django.http import HttpResponse 
+from django.core import serializers 
 import json
-from django.shortcuts import render, redirect # type: ignore
-from .models import Product, Contact
+from django.shortcuts import render, redirect
+from .models import Product, Contact, Order
 from math import ceil
 
 
@@ -67,4 +67,21 @@ def cart(request):
     return render(request, "shop/cart.html")
 
 def checkout(request):
+    if request.method == "POST":
+        itemJson = request.POST.get("itemJson", '')
+        fullname = request.POST.get("fullname", '')
+        email = request.POST.get("email", '')
+        adel1 = request.POST.get("adel1", '')
+        adrl2 = request.POST.get("adrl2", '')
+        district = request.POST.get("district", '')
+        state = request.POST.get("state", '')
+        pincode = request.POST.get("pincode", '')
+        ph = request.POST.get("ph", '')
+        order = Order(items_json=itemJson, name=fullname, email=email, address_line_1=adel1, address_line_2=adrl2, district=district, state=state, pincode=pincode, phone=ph)
+        order.save()
+        
+        return render(request, "shop/orderSucess.html", {"id": order.order_id})
     return render(request, 'shop/checkout.html')
+
+def search(request):
+    return render(request, 'shop/orderSucess.html')
