@@ -30,8 +30,15 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "api.ayushananda.com",
+    "localhost:8000",
+    "localhost"
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://api.ayushananda.com",
+    "http://localhost:8000"
+]
 
  
 

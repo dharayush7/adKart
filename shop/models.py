@@ -1,6 +1,4 @@
-from ast import mod
-from os import name
-from django.db import models # type: ignore
+from django.db import models 
 
 
 class Product(models.Model):
@@ -30,6 +28,7 @@ class Contact(models.Model):
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     items_json = models.CharField(max_length=5000)
+    amount = models.IntegerField(default=0)
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     address_line_1 = models.CharField(max_length=1000)
@@ -38,6 +37,8 @@ class Order(models.Model):
     state = models.CharField(max_length=1000)
     pincode = models.CharField(max_length=100)
     phone = models.CharField(max_length=15, default="")
+    txn_status = models.CharField(max_length=50, default="pending")
+    txnid = models.CharField(max_length=50, default="")
 
 
     
@@ -50,3 +51,22 @@ class OrderUpdate(models.Model):
 
     def __str__(self):
         return self.order_desc[0:7] + "..."
+
+
+class Transaction(models.Model):
+    id = models.AutoField(primary_key=True)
+    order_id = models.CharField(max_length=100, default="")
+    mihpayid= models.CharField(max_length=100)
+    mode= models.CharField(max_length=100)
+    status= models.CharField(max_length=100)
+    txnid= models.CharField(max_length=100)
+    amount= models.CharField(max_length=100)
+    firstname=models.CharField(max_length=100)
+    email=models.CharField(max_length=100)
+    hash=models.CharField(max_length=10000)
+    payment_source=models.CharField(max_length=100)
+    bank_ref_num=models.CharField(max_length=100)
+    bankcode=models.CharField(max_length=100)
+    error_Message=models.CharField(max_length=100)
+    error=models.CharField(max_length=100)
+    addedon=models.CharField(max_length=100)

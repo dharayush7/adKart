@@ -34,19 +34,14 @@
 {% endblock %} {% block body %}
 <div class="container-fluid" style="margin-top: 79px">
   <div
-    class="container bg-success-subtle mt-4"
+    class="container bg-danger-subtle mt-4"
     style="height: auto; padding: 50px; border-radius: 30px; width: 100%"
   >
-    <p class="fs-2">Order Place Successfully</p>
+    <p class="fs-2">Order Canceled</p>
     <p class="fs-4">
       Order ID: <span id="orderId" class="fw-bold">{{id}}</span>.
-      <span
-        class="text-primary fs-5 text-decoration-underline"
-        style="cursor: pointer"
-        id="copy"
-        >copy</span
-      >
-      Use it track the order.
+     
+      Transaction failed
     </p>
     <p class="fs-4">Transaction Id <span class="fw-bold">{{txnId}}</span></p>
     <div>
@@ -66,7 +61,4 @@
   </div>
 </div>
 {% endblock %}
-{% block js %}
-{% load static %}
-<script src="{% static 'script/orderSuccess.js' %}"></script> 
-{% endblock %}
+

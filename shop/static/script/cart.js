@@ -1,4 +1,7 @@
 const container = document.getElementById("container");
+const DOMAIN = window.location.host
+const PROTOCOL = window.location.protocol
+
 
 const csrf = document.querySelector("#csrf input").value;
 
@@ -49,10 +52,10 @@ async function checkOut(cart) {
     `;
     document.getElementById("clcr").addEventListener("click", () => {
       localStorage.removeItem("cart");
-      window.location.replace("http://localhost:8000/shop/cart");
+      window.location.replace(`${PROTOCOL}//${DOMAIN}/shop/cart`);
     });
     document.getElementById("chot").addEventListener("click", () => {
-      window.location.replace("http://localhost:8000/shop/checkout");
+      window.location.replace(`${PROTOCOL}//${DOMAIN}/shop/checkout`);
     });
   });
 }
@@ -119,7 +122,7 @@ async function render(cart) {
         let btnid = btndel.id.split("del")[1];
         delete cart[btnid];
         localStorage.setItem("cart", JSON.stringify(cart));
-        window.location.replace("http://localhost:8000/shop/cart");
+        window.location.replace(`${PROTOCOL}//${DOMAIN}/shop/cart`);
       });
     });
   });

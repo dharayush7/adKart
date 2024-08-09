@@ -64,6 +64,7 @@
     </div>
     <form action="/shop/checkout/" method="post" id="fld"> {% csrf_token %}
       <input type="hidden" id="itemJson" name="itemJson">
+      <input type="hidden" id="amount" name="amount">
       <div class="row mb-3">
         <div class="col-md-6">
           <label for="fullname" class="form-label text-light fs-4"

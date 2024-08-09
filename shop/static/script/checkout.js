@@ -1,5 +1,7 @@
 const csrf = document.querySelector("#fld input").value
 
+const DOMAIN = window.location.host;
+const PROTOCOL = window.location.protocol;
 
 let cart = {};
 if (localStorage.getItem("cart")) {
@@ -103,6 +105,7 @@ async function fetchItem(cart) {
 
       p = p + p1;
       document.getElementById("liPrd").innerHTML = p;
+      
     }
   });
 }
@@ -118,11 +121,12 @@ async function fetchAmout(cart) {
     document.getElementById(
       "tlamn"
     ).innerHTML = `<b>Total Amount:</b> $ ${p}.00`;
+    document.getElementById("amount").value = p;
   });
 }
 
 async function get(key) {
-  let result = await fetch("http://localhost:8000/shop/cart/", {
+  let result = await fetch(`${PROTOCOL}//${DOMAIN}/shop/cart/`, {
     headers: {
       "X-CSRFToken": csrf,
     },

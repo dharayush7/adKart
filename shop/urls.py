@@ -1,4 +1,4 @@
-from django.urls import path # type: ignore
+from django.urls import path 
 from . import views
 
 
@@ -12,4 +12,6 @@ urlpatterns = [
     path("search/", views.search, name="search"),
     path("product/<int:id>", views.product, name="productView"),
     path("checkout/", views.checkout, name="checkout"),
+    path("ordersucess/", views.ordersucess, name="orderSuccess"),
+    path("orderfailed/", views.orderFailed, name="orderfailed")
 ]

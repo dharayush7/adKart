@@ -1,4 +1,6 @@
 const cartbtns = document.querySelectorAll(".cart");
+const DOMAIN = window.location.host;
+const PROTOCOL = window.location.protocol;
 
 function update(cart) {
   for (var item in cart) {
@@ -35,7 +37,7 @@ cartbtns.forEach((cartbtn) => {
     pluses = document.querySelectorAll(".plus");
     cartLink.innerText = `(${Object.keys(cart).length})`;
     localStorage.setItem("cart", JSON.stringify(cart));
-    window.location.replace("http://localhost:8000/shop/")
+    window.location.replace(`${PROTOCOL}//${DOMAIN}/shop`)
   });
 });
 
