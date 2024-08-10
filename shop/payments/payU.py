@@ -1,10 +1,33 @@
+import datetime
 import hashlib
-from . import payUCreads
+import urllib.parse
+
+def merchant_key():
+    MID = "JPM7Fg"
+    SALT = "TuxqAugd"
+    credes = {
+        "key":MID,
+        "salt": SALT
+    }
+    return credes
 
 
 
-def generate_hash(params):
-    credes = payUCreads.merchant_key()
+def createTxnId():
+    x = str(datetime.datetime.now())
+    year =x[0:4]
+    month= x[5:7]
+    day = x[8:10]
+    hr = x[11:13]
+    mi = x[14:16]
+    sec = x[17:19]
+    msec = x[20:26]
+
+    txnId = year + month + day + hr + mi + sec + msec
+    return txnId
+
+def payUHasher(params):
+    credes = merchant_key()
     key = credes.get('key')
     salt = credes.get('salt')
     txnid = params.get("txnid")
@@ -24,3 +47,13 @@ def generate_hash(params):
         payment_hash_sequence = f"{key}|{txnid}|{amount}|{productinfo}|{firstname}|{email}|{udf1}|{udf2}|{udf3}|{udf4}|{udf5}||||||{salt}"
     hash_value = hashlib.sha512((payment_hash_sequence).encode('utf-8')).hexdigest()
     return hash_value
+
+
+def payUParse(body):
+    bobyStr = str(body, 'utf-8')
+    bodyMaxJson = urllib.parse.parse_qs(bobyStr)
+    bodyJson = {}
+
+    for i in bodyMaxJson:
+        bodyJson[i] = (bodyMaxJson.get(i))[0] # type: ignore
+    return bodyJson

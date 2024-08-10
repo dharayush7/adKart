@@ -4,13 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.shortcuts import render, redirect
 from .models import Product, Contact, Order, OrderUpdate, Transaction
-from .payments.payUHasher import generate_hash
-from .payments.payUCreads import merchant_key
-from .payments.txn import createTxnId
-from .payments.payUBodyParser import payUParse
+from .payments import payU
 from math import ceil
 
-from shop.payments import payUCreads
 
 
 
@@ -32,6 +28,24 @@ def index(request):
         'allProds': allProds
     }
     return render(request, 'shop/index.html', params)
+
+def searchMatch(quary, item):
+    quary = quary.lower()
+    if quary in item.desc.lower() or quary in item.product_name.lower() or quary in item.category.lower() or quary in item.sub_category.lower():
+        return True
+    else:
+        return False
+
+
+def search(request):
+    quary = request.GET.get("search")
+    prods = []
+    allprods = Product.objects.all()
+    for i in allprods:
+        if searchMatch(quary, i):
+            prods.append(i)
+
+    return render(request, 'shop/search.html', {"prods": prods, "len": len(prods)})
 
 
 def about(request):        
@@ -66,7 +80,8 @@ def tracker(request):
                         "adrln2": order[0].address_line_2,
                         "csp": order[0].district+ ", "+ order[0].state + " - " + order[0].pincode,
                         "ph": order[0].phone,
-                        "email": order[0].email
+                        "email": order[0].email,
+                        "txnid": order[0].txnid
                     }
 
                     prod = []
@@ -137,7 +152,7 @@ def checkout(request):
         update = OrderUpdate(order_id= order.order_id, order_desc="Payment Initiated")
         update.save()
         
-        txnid = createTxnId()
+        txnid = payU.createTxnId()
         payparam = {
             "txnid": txnid,
             "amount": order.amount,
@@ -145,10 +160,10 @@ def checkout(request):
             "firstname": order.name,
             "email": order.email,
         }
-        hash = generate_hash(payparam)
+        hash = payU.payUHasher(payparam)
         transaction = Transaction(order_id=order.order_id, mihpayid="",mode="", status="pending", txnid=txnid, amount=order.amount, firstname=order.name, email=order.email, hash=hash,payment_source="",bank_ref_num="",bankcode="", error_Message="", error="", addedon="" )
         transaction.save()
-        key = merchant_key().get("key")
+        key = payU.merchant_key().get("key")
         params ={
             "key": key,
             "txnid": txnid,
@@ -166,16 +181,15 @@ def checkout(request):
     return render(request, 'shop/checkout.html')
 
 
-def search(request):
-    return render(request, 'shop/trackDetails.html')
+
 
 @csrf_exempt
 def ordersucess(request):
     if request.method == "POST":
-        body = payUParse(request.body)
+        body = payU.payUParse(request.body)
         productinfo = body["productinfo"]
         transaction = Transaction.objects.filter(txnid=body["txnid"])
-        if merchant_key()["key"] == body["key"]:
+        if payU.merchant_key()["key"] == body["key"]:
             order = Order.objects.filter(order_id=productinfo)
             
             order.update(txn_status="success",txnid=body["txnid"] )
@@ -212,7 +226,7 @@ def ordersucess(request):
             update2 = OrderUpdate(order_id=productinfo, order_desc="Order canceled due payment failed")
             update2.save()
 
-            # failed due hash unmatch
+  
             mihpayid = body['mihpayid']
             mode = body["mode"]
             payment_source = body["payment_source"]
@@ -237,7 +251,7 @@ def ordersucess(request):
 @csrf_exempt
 def orderFailed(request):
     if request.method == "POST":
-        body = payUParse(request.body)
+        body = payU.payUParse(request.body)
         print(body)
         productinfo = body["productinfo"]
         transaction = Transaction.objects.filter(txnid=body["txnid"])
@@ -270,8 +284,3 @@ def orderFailed(request):
         
     else:
         return HttpResponse("404 bad request..")
-
-# return render(request, "shop.orderFailed.html", {
-#                 "id": order[0].order_id,
-#                 "txnId": transaction[0].txnid
-#             })
