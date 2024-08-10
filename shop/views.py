@@ -221,7 +221,7 @@ def ordersucess(request):
             order.update(txn_status="failed due MID unmatch",txnid=body["txnid"] )
             
             
-            update1 = OrderUpdate(order_id=productinfo, order_desc="Payment faild")
+            update1 = OrderUpdate(order_id=productinfo, order_desc="Payment failed")
             update1.save()
             update2 = OrderUpdate(order_id=productinfo, order_desc="Order canceled due payment failed")
             update2.save()
@@ -252,11 +252,10 @@ def ordersucess(request):
 def orderFailed(request):
     if request.method == "POST":
         body = payU.payUParse(request.body)
-        print(body)
         productinfo = body["productinfo"]
         transaction = Transaction.objects.filter(txnid=body["txnid"])
         order = Order.objects.filter(order_id=productinfo)
-        order.update(txn_status="failed due MID unmatch",txnid=body["txnid"] )
+        order.update(txn_status="failed",txnid=body["txnid"] )
             
             
         update1 = OrderUpdate(order_id=productinfo, order_desc="Payment failed")
