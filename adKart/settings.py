@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os.path
 from pathlib import Path
-import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,21 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-env = environ.Env()
-environ.Env.read_env()
 
-SECRET_KEY = env('SECRET_KEY')
+
+SECRET_KEY = "django-insecure-v$q3()tl=4-xl_t8w89e9ct&gro06x3$2!kv4+vfhdie496c1t3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "api.ayushananda.com",
-    "localhost:8000",
+    # Add a live host
     "localhost"
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://api.ayushananda.com",
+    # Add a live website home page URL
     "http://localhost:8000"
 ]
 

@@ -8,7 +8,7 @@ from .payments import payU
 from math import ceil
 
 
-
+HOME_PAGE_URL = " # Add a home page url "
 
 # Create your views here.
 
@@ -171,8 +171,8 @@ def checkout(request):
             "amount": order.amount,
             "email": order.email,
             "firstname": order.name,
-            "surl": "https://api.ayushananda.com/shop/ordersucess/",
-            "furl": "https://api.ayushananda.com/shop/orderfailed/",
+            "surl": f"{HOME_PAGE_URL}shop/ordersucess/",
+            "furl": f"{HOME_PAGE_URL}shop/orderfailed/",
             "phone": order.phone,
             "hash": hash
         }
